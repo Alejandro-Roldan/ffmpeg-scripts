@@ -96,7 +96,7 @@ done
 # errors so you don't have to run, find an error, fix it, find a different error, fix it... This way you can fix all
 # in one run
 if (( $errors != 0 )); then
-	echo "Errors where found. Exiting"
+	echo "Errors were found. Exiting"
 	echo ""
 	exit 1
 fi
