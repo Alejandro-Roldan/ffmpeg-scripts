@@ -33,7 +33,7 @@ for dir in "$up_dir"/*/; do
 
 	echo "Updating $dir"
 
-	youtube-dl --playlist-reverse --download-archive .archive -o "#%(autonumber)s - %(title)s.%(ext)s" --add-metadata "$url"
+	youtube-dl --playlist-reverse --download-archive .archive -o "#%(playlist_index)s - %(title)s.%(ext)s" --add-metadata "$url"
 
 	# Convert m4a to mp3 and remove the m4a if succesful
 	for f in *.m4a; do
@@ -42,6 +42,9 @@ for dir in "$up_dir"/*/; do
 			ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a 4 "${f%.m4a}.mp3" && rm "$f"
 		fi
 	done
+	# To do the conversion using multiple cores comment the previous for loop and uncomment the next line
+	# (fd is an external tool, not base unix)
+	# fd -t f -e m4a --search-path "$dir" -x bash -c 'ffmpeg -i "$0" -codec:v copy -codec:a libmp3lame -q:a 2 "${0%.m4a}.mp3" && rm "$0"' {}
 
 	# Go up one directory (used to be used to solve and error with ".", not needed anymore after many code
 	# iterations to solve that issue, but commented out to have it in mind and easily usable if any new bugs arise)
