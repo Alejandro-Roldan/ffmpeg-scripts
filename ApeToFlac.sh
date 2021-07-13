@@ -57,10 +57,13 @@ error_exit(){
 }
 
 help_msg(){
+	echo "Usage:"
+	echo " ApeToFlac.sh [options]"
 	echo
-	echo "-i [input_dir0, input_dir1, input_dir2...] The source directory. Defaults to working directory"
-	echo "-d [output_dir] The output directory. Defaults to working input directory"
-	echo "-h Prints this message"
+	echo "Options:"
+	echo " -i --input [input_dir0, input_dir1, input_dir2...] The source directory. Defaults to working directory"
+	echo " -d --destination [output_dir] The output directory. Defaults to working input directory"
+	echo " -h --help Prints this message"
 }
 
 
@@ -101,6 +104,7 @@ while [ ! -z "$1" ]; do
 		# Undefined argument
 		*)
 			echo "Undefined argument $1"
+			echo
 			help_msg
 			errors=1
 		;;

@@ -51,6 +51,16 @@ echo ""
 # ARGUMENTS PROCESSING #
 ########################
 
+help_msg(){
+	echo "Usage:"
+	echo " FlacToMp3V3.sh [options]"
+	echo
+	echo "Options:"
+	echo " -s [source] The source directory. Defaults to working directory"
+	echo " -d [destination] The output directory. Defaults to working directory"
+	echo " -c [number_of_cores] The number of cores to use. Defaults to MAX"
+}
+
 while getopts 's:d:c:h' option; do
 	case "${option}" in
 		# Source directory
@@ -82,12 +92,14 @@ while getopts 's:d:c:h' option; do
 		;;
 		# Help
 		h)
-			echo "-s [source] The source directory. Defaults to working directory"
-			echo "-d [destination] The output directory. Defaults to working directory"
-			echo "-c [number_of_cores] Optional. The number of cores to use. Defaults to MAX"
+			help_msg
+			exit 0
 		;;
 		# Unspecified argument
-		*) errors=1;;
+		*)
+			help_msg
+			exit 1
+		;;
 	esac
 done
 
@@ -96,7 +108,7 @@ done
 # errors so you don't have to run, find an error, fix it, find a different error, fix it... This way you can fix all
 # in one run
 if (( $errors != 0 )); then
-	echo "Errors were found. Exiting"
+	echo "Errors where found. Exiting"
 	echo ""
 	exit 1
 fi
